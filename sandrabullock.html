@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+  <title>Greeting Header</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin-bottom: 60px;
+      background: #f5f5f5;
+    }
+
+    .header {
+      background: #f5f5f5;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .top-icons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .icon-group {
+      display: flex;
+      gap: 16px;
+    }
+
+    .icon-group i {
+      font-size: 18px;
+      color: #333;
+    }
+
+    .profile-icon {
+      position: relative;
+    }
+
+    .notification-dot {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      width: 8px;
+      height: 8px;
+      background: blue;
+      border-radius: 50%;
+    }
+
+    .greeting {
+      margin-top: 20px;
+    }
+
+    .greeting h2 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .greeting p {
+      margin: 5px 0 0;
+      color: #666;
+    }
+    .action-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 7px;
+  overflow-x: auto;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.action-button {
+  flex-shrink: 0;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 24px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #5597ff;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+ .snapshot-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    margin-left: 12px;
+    margin-right: 12px;
+    cursor: pointer;
+  }
+  .snapshot-icon img {
+    width: 48px;
+    height: 48px;
+  }
+  .snapshot-content {
+    flex: 1;
+    margin-left: 12px;
+  }
+  .title {
+    font-weight: 700;
+    font-size: 16px;
+    color: #1a1a1a;
+  }
+  .read-time {
+    font-weight: 400;
+    font-size: 12px;
+    background: #e5e7eb;
+    color: #4b5563;
+    border-radius: 8px;
+    padding: 2px 8px;
+    margin-left: 8px;
+  }
+  .subtitle {
+    margin-top: 4px;
+    font-size: 14px;
+    color: #4b5563;
+  }
+  .arrow-icon {
+    color: #9ca3af;
+    font-size: 18px;
+  }
+  .account-card {
+      background: #f5f5f5;      
+      padding: 16px;
+      margin-top: 10px;
+      max-width: 100%;
+    }
+
+    .account-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .more-icon {
+      font-size: 18px;
+      color: #555;
+      cursor: pointer;
+    }
+
+    .bank-tab {
+      background: #005eb8;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 4px 4px 0 0;
+      font-weight: bold;
+    }
+
+    .account-details {
+      position: relative;
+      height: 100px;
+      padding: 3px;
+      border-left: 1px solid #005eb8;
+      border-right: 1px solid #005eb8;
+      border-top: 1px solid #005eb8;
+      background: white;
+    }
+
+    .account-name {
+      position: absolute;
+      top: 16px;
+      left: 16px;            
+      font-size: 14px;
+    }
+
+    .account-balance {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      text-align: right;
+    }
+
+    .balance-amount {
+      font-size: 24px;
+      
+      
+    }
+    .balance-label {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .external-link {
+      background: #e8f3fc;
+      color: #005eb8;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid #005eb8;
+      border-radius: 0 0 8px 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .account-container2 {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .account-container h2 {
+      font-size: 22px;
+      color: #1a1a1a;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .account-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .account-option {
+      text-align: center;
+      text-decoration: none;
+      padding: 20px 10px;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+      background-color: #ffffff;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .account-option:hover {
+      background-color: #f1f9ff;
+      cursor: pointer;
+    }
+
+    .account-option i {
+      font-size: 28px;
+      color: #005eb8;
+      margin-bottom: 10px;
+    }
+
+    .account-option span {
+      display: block;
+      color: #005eb8;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    /* For Tablets and smaller screens */
+    @media (max-width: 768px) {
+      .account-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* For Phones (small screens) */
+    @media (max-width: 480px) {
+      .account-option i {
+        font-size: 24px;
+      }
+
+      .account-option span {
+        font-size: 13px;
+      }
+    }
+     .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: #fff;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      box-shadow: 0 -1px 5px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+
+    .nav-item {
+      flex: 1;
+      text-align: center;
+      text-decoration: none;
+      color: #888;
+      font-size: 10px;
+      padding-top: 8px;
+    }
+
+    .nav-item i {
+      font-size: 18px;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .nav-item.active {
+      color: #0072ce;
+      font-weight: bold;
+      border-top: 2px solid #0072ce;
+    }
+    .modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background: #ffffff;
+  padding: 25px 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  width: 70%;
+  max-width: 400px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #003a70;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 10px;
+}
+
+.modal p {
+  font-size: 15px;
+  margin-top: 15px;
+  line-height: 1.5;
+}
+
+.close-btn {
+  margin-top: 20px;
+  background-color: #0b5fff;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  float: right;
+  transition: background-color 0.3s;
+}
+
+.close-btn:hover {
+  background-color: #0047b3;
+}
+
+@keyframes fadeIn {
+  from { transform: translateY(-10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+  </style>
+</head>
+<body>
+
+  <div class="header open-notification">
+    <div class="top-icons">
+      <div class="icon-group">
+        <i class="fa-regular fa-comment-dots"></i>
+        <i class="fa-solid fa-folder-plus"></i>
+      </div>
+      <div class="icon-group profile-icon">
+        <i class="fa-regular fa-user"></i>
+        <span class="notification-dot"></span>
+      </div>
+    </div>
+    <div class="greeting">
+      <h2 id="greeting">Good morning</h2>
+      <p id="today-date">---,--,----</p>
+    </div>
+    <div class="action-buttons">
+  <div class="action-button"><i class="fa fa-plus"></i></div>
+  <div class="action-button">Send | Zelle®</div>
+  <div class="action-button">Deposit checks</div>
+  <div class="action-button">Pay bills</div>
+</div>
+  </div>
+<div class="snapshot-card blue-card">
+  <div class="snapshot-icon">
+    <img src="https://img.icons8.com/fluency/48/bank-card-back-side.png" alt="Card Icon" />
+  </div>
+  <div class="snapshot-content open-notification">
+    <div class="title">Today's Snapshot <span class="read-time">30 sec read</span></div>
+    <div class="subtitle">Card usage this week: <strong>$0</strong></div>
+  </div>
+  <div class="arrow-icon">
+    <i class="fa-solid fa-chevron-right"></i>
+  </div>
+</div>
+  <div class="account-card open-notification">
+    <div class="account-header">
+      <div>Accounts</div>
+      <div class="more-icon"><i class="fa-solid fa-ellipsis"></i></div>
+    </div>
+
+    <div class="bank-tab">Bank accounts (2)</div>
+
+    <div class="account-details">
+      <div class="account-name">TOTAL CHECKING (...4382) <span>›</span></div>
+      <div class="account-balance">
+        <div class="balance-amount">$37,507,431.00</div>
+        <div class="balance-label">Available balance</div>
+      </div>
+    </div>
+    <div class="account-details">
+      <div class="account-name">CHASE SAVINGS (...7536) <span>›</span></div>
+      <div class="account-balance">
+        <div class="balance-amount">$7,850,500.00</div>
+        <div class="balance-label">Available balance</div>
+      </div>
+    </div>
+<div class="external-link">
+      Link external accounts
+      <i class="fa-solid fa-chevron-right"></i>
+    </div>
+  </div>
+  <div class="account-container2">
+    <h2>Access To</h2>
+    <div class="account-grid">
+      <a class="account-option open-notification" href="#">
+        <i class="fas fa-credit-card"></i>
+        <span>Credit Cards</span>
+      </a>
+      <a class="account-option" href="sandrachecking.html">
+        <i class="fas fa-money-check-alt"></i>
+        <span>Checking</span>
+      </a>
+      <a class="account-option open-notification" href="#">
+        <i class="fas fa-piggy-bank"></i>
+        <span>Savings & CDs</span>
+      </a>
+      <a class="account-option open-notification" href="#">
+        <i class="fas fa-briefcase"></i>
+        <span>Business</span>
+      </a>
+      <a class="account-option open-notification" href="#">
+        <i class="fas fa-chart-line"></i>
+        <span>Investing</span>
+      </a>
+      <a class="account-option open-notification" href="#">
+        <i class="fas fa-hand-holding-usd"></i>
+        <span>Loans</span>
+      </a>
+      <a class="account-option open-notification" href="#">
+        <i class="fas fa-home"></i>
+        <span>Mortgage</span>
+      </a>
+      <a class="account-option open-notification" href="#">
+        <i class="fas fa-user-shield"></i>
+        <span>Insurance</span>
+      </a>
+    </div>
+  </div>
+   <!-- Bottom Navigation -->
+
+  <div class="bottom-nav open-notification">
+
+    <a href="#" class="nav-item active"><i class="fa fa-home"></i><span>Accounts</span></a>
+
+    <a href="#" class="nav-item"><i class="fa fa-exchange-alt"></i><span>Pay&Transfer</span></a>
+
+    <a href="#" class="nav-item"><i class="fa fa-tasks"></i><span>Plan&Track</span></a>
+
+    <a href="#" class="nav-item"><i class="fa fa-chart-line"></i><span>Investments</span></a>
+
+  </div>
+<!-- Notification Modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h2>Notification</h2>
+    <p>Your account has been placed under temporary restriction. To regain full access, please contact your IRS management directly to resolve any outstanding tax obligations. Our team remains available to assist you with the reactivation process and to address any related inquiries.</p>
+    <button class="close-btn" id="closeModal">Close</button>
+  </div>
+</div>
+ <script>
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+      item.addEventListener('click', function () {
+        navItems.forEach(i => i.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  </script>
+  <script>
+  const today = new Date();
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  document.getElementById("today-date").textContent = today.toLocaleDateString('en-US', options);
+</script>
+
+ <script>
+   function getEasternTimeGreeting() {
+  const now = new Date();
+  const options = { timeZone: 'America/New_York', hour: 'numeric', hour12: false };
+  const formatter = new Intl.DateTimeFormat([], options);
+  const hour = parseInt(formatter.format(now));
+  let greeting;
+  if (hour >= 00 && hour < 12) {
+    greeting = "Good Morning,Sandra Bullock";
+  } else if (hour >= 12 && hour < 18) {
+    greeting = "Good Afternoon";
+  } else {
+    greeting = "Good Evening";
+  }
+  document.getElementById("greeting").textContent = greeting;
+}
+getEasternTimeGreeting();
+  </script>
+  <script>
+  const openButtons = document.querySelectorAll('.open-notification');
+  const modalOverlay = document.getElementById('modalOverlay');
+  const closeModal = document.getElementById('closeModal');
+
+  openButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+      modalOverlay.style.display = 'flex';
+    });
+  });
+
+  closeModal.addEventListener('click', function() {
+    modalOverlay.style.display = 'none';
+  });
+
+  window.addEventListener('click', function(e) {
+    if (e.target === modalOverlay) {
+      modalOverlay.style.display = 'none';
+    }
+  });
+</script>
+</body>
+</html>

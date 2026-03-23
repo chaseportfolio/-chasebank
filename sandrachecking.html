@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link
+    rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>        
+  <title>Chase Account</title>
+  <style>
+    :root {
+      --primary-blue: #0073cf;
+      --text-dark: #1a1a1a;
+      --gray-light: #f1f2f6;
+      --border-gray: #e0e0e0;
+    }
+    :root {
+      --chase-blue: #0b6efd;
+      --text-color: #1c1c1c;
+      --subtext-color: #6c757d;
+      --background: #f4f6f9;
+    }
+    :root {
+      --chase-blue: #0b6efd;
+      --debit-color: #d32f2f;
+      --background: #f1f4f9;
+      --border-color: #e0e6ed;
+      --text: #1c1c1c;
+      --subtext: #555;
+    }
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      background-color: var(--gray-light);
+      color: var(--text-dark);
+    }
+
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 16px;
+      background-color: #f5f5f5;
+      max-width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0 10px;
+      font-size: 30px;
+      font-weight: 600;
+    }
+
+    .back-button {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      position: relative;
+      margin-right: 8px;
+    }
+
+    .back-button::before {
+      content: "";
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      width: 8px;
+      height: 8px;
+      border-left: 2px solid var(--text-dark);
+      border-bottom: 2px solid var(--text-dark);
+      transform: rotate(45deg);
+    }
+
+    .account-details {
+      background-color: #fff;
+      border-radius: 14px;
+      margin-top: 12px;
+      padding: 20px 16px 20px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+      position: relative;
+    }
+
+    .balance-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .balance-text {
+      text-align: right;
+    }
+
+    .balance-amount {
+      font-size: 28px;
+      font-weight: 400;
+    }
+
+    .balance-label {
+      font-size: 12px;
+      color: #555;
+    }
+
+    .details-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #1a1a1a;
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: #333;
+      margin: 10px 0;
+    }
+
+    .info-icon {
+      width: 14px;
+      height: 14px;
+      margin-left: 5px;
+      vertical-align: middle;
+    }
+
+   .show-details {
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.show-details button {
+  display: inline-flex;
+  align-items: center;
+  font-size: 13px;
+  color: var(--primary-blue);
+  background-color: #fff;
+  border: 1px solid #cbd5e0;
+  border-radius: 20px;
+  padding: 6px 14px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.extra-details {
+  display: none;
+  margin-top: 20px;
+  background-color: #f9fafb;
+  padding: 15px;
+  border-radius: 12px;
+  font-size: 14px;
+  color: #444;
+}
+
+.show-details {
+  text-align: center;
+  margin-top: 20px;    
+}
+
+    .chevron-down {
+      width: 6px;
+      height: 6px;
+      border: solid var(--primary-blue);
+      border-width: 0 1.5px 1.5px 0;
+      transform: rotate(45deg);
+      display: inline-block;
+      margin-left: 6px;
+    }
+
+    @media (max-width: 420px) {
+      .balance-amount {
+        font-size: 24px;
+      }
+
+      .header {
+        font-size: 14px;
+      }
+
+      .detail-row {
+        font-size: 13px;
+      }
+      }
+       .container1 {
+      max-width: 100%;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .top-actions {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 10px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
+
+    .action {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      text-decoration: none;
+      color: var(--chase-blue);
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .action .icon-circle {
+      background-color: #fff;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 6px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+
+    .action i {
+      font-size: 20px;
+      color: var(--chase-blue);
+    }
+
+    .manage-account {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #fff;
+      padding: 16px 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      cursor: pointer;
+      margin-bottom: 30px;
+    }
+
+    .manage-account .info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .manage-account .info h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+
+    .manage-account .info span {
+      font-size: 13px;
+      color: var(--subtext-color);
+    }
+
+    .manage-account .arrow {
+      font-size: 20px;
+      color: #888;
+    }
+
+    @media (max-width: 400px) {
+      .top-actions {
+        gap: 8px;
+      }
+
+      .action {
+        font-size: 12px;
+      }
+
+      .action .icon-circle {
+        width: 42px;
+        height: 42px;
+      }
+
+      .action i {
+        font-size: 18px;
+      }
+    }
+    .transactions-box {
+  max-width: 100%;
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  margin: auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.header-row h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.arrow-link {
+  font-size: 24px;
+  color: #888;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.transaction {
+  padding: 14px 0;
+  border-top: 1px solid var(--border-color);
+  cursor: pointer;
+}
+
+.transaction:first-of-type {
+  border-top: none;
+}
+
+.desc {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+
+.date {
+  font-size: 13px;
+  color: var(--subtext);
+  margin-bottom: 6px;
+}
+
+.row-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.balance {
+  font-size: 13px;
+  color: #333;
+}
+
+.amount {
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.credit {
+  color: var(--chase-blue);
+}
+
+.debit {
+  color: var(--debit-color);
+}
+
+.details {
+  display: none;
+  margin-top: 10px;
+  background: #f8f9fc;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--subtext);
+}
+
+.transaction.active .details {
+  display: block;
+}
+
+@media (max-width: 400px) {
+  .desc, .date, .balance {
+    font-size: 12px;
+  }
+
+  .amount {
+    font-size: 14px;
+  }
+
+  .arrow-link {
+    font-size: 20px;
+  }
+}
+.credit-card {
+      border-top: 3px solid #005EB8;
+      border-bottom: 3px solid #005EB8;
+      background: #fff;
+      padding: 15px 20px;
+      margin: 15px;
+      border-radius: 6px;
+      font-family: sans-serif;
+    }
+
+    .credit-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .credit-text .title {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 5px;
+      color: #000;
+    }
+
+    .credit-text .subtitle {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .arrow {
+      font-size: 60px;
+      color: #555;
+    }
+
+    .account-services {
+      padding: 20px 30px 60px 30px;
+      background-color: #fff;
+      border-radius: 10px;
+      margin: 5px;
+      margin-bottom: 95px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .account-services h2 {  
+      margin-bottom: 15px;  
+      font-size: 18px;  
+      color: #333;  
+    }  
+
+    .service-options {  
+      display: flex;  
+      flex-wrap: wrap;  
+      gap: 15px;  
+      justify-content: space-between;  
+    }  
+
+    .service-item {  
+      width: 22%;  
+      display: flex;  
+      flex-direction: column;  
+      align-items: center;  
+      text-align: center;  
+      text-decoration: none;
+      color: inherit;
+    }  
+
+    .icon-circle {  
+      background-color: #e0e8f0;  
+      width: 50px;  
+      height: 50px;  
+      border-radius: 50%;  
+      display: flex;  
+      align-items: center;  
+      justify-content: center;  
+      margin-bottom: 8px;  
+      color: #0072ce;  
+      font-size: 20px;  
+    }  
+
+    .label {  
+      font-size: 13px;  
+      color: #444;  
+    }  
+
+    @media (max-width: 600px) {  
+      .service-item {  
+        width: 30%;  
+      }  
+    }  
+
+    .bottom-nav {  
+      position: fixed;  
+      bottom: 0;  
+      left: 0;  
+      right: 0;  
+      height: 60px;  
+      background: #fff;  
+      display: flex;  
+      justify-content: space-around;  
+      align-items: center;  
+      box-shadow: 0 -1px 5px rgba(0,0,0,0.1);  
+      z-index: 1000;  
+    }  
+
+    .nav-item {  
+      flex: 1;  
+      text-align: center;  
+      text-decoration: none;  
+      color: #888;  
+      font-size: 10px;  
+      padding-top: 8px;  
+    }  
+
+    .nav-item i {  
+      font-size: 18px;  
+      display: block;  
+      margin-bottom: 4px;  
+    }  
+
+    .nav-item.active {  
+      color: #0072ce;  
+      font-weight: bold;  
+      border-top: 2px solid #0072ce;  
+    }
+    .modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background: #ffffff;
+  padding: 25px 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #003a70;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 10px;
+}
+
+.modal p {
+  font-size: 15px;
+  margin-top: 15px;
+  line-height: 1.5;
+}
+
+.close-btn {
+  margin-top: 20px;
+  background-color: #0b5fff;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  float: right;
+  transition: background-color 0.3s;
+}
+
+.close-btn:hover {
+  background-color: #0047b3;
+}
+
+@keyframes fadeIn {
+  from { transform: translateY(-10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="back-button" onclick="history.back();"></div>
+      <div style="flex: 1; text-align: right;">TOTAL CHECKING (...6386)</div>
+    </div>
+
+    <!-- Account Container -->
+    <div class="account-details">
+      <!-- Balance -->
+      <div class="balance-box">
+        <div></div>
+        <div class="balance-text">
+          <div class="balance-amount">$37,507,431.00</div>
+          <div class="balance-label">Available balance</div>
+        </div>
+      </div>
+
+      <!-- Account Details -->
+      <div class="details-title">Account details</div>
+      <div class="detail-row">
+        <span>Available balance</span>
+        <span>
+        <strong> $37,507,431.00</strong>  
+          <img src="https://cdn-icons-png.flaticon.com/512/1828/1828970.png" alt="?" class="info-icon">
+        </span>
+      </div>
+      <div class="detail-row">
+        <span>Present balance</span>
+        <span>
+           <strong> $37,507,431.00</strong>  
+          <img src="https://cdn-icons-png.flaticon.com/512/1828/1828970.png" alt="?" class="info-icon">
+        </span>
+      </div>            
+      <!-- Hidden Extra Details -->
+      
+<!-- Hidden Extra Details -->
+<div id="extraDetails" class="extra-details">
+  <div class="detail-row">
+    <span>Last deposit</span>
+    <span>$300,000.00</span>
+  </div>
+  <div class="detail-row">
+    <span>Pending</span>
+    <span>$0.00</span>
+  </div>
+</div>
+
+<!-- Show Details Button -->
+<div class="show-details">
+  <button onclick="toggleDetailss()">Show details ▼</button>
+</div></div>
+    </div>
+    </div>
+    <div class="container1">
+    <div class="top-actions">
+      <a href="#" class="action open-notification">
+        <div class="icon-circle">
+          <i class="fa fa-credit-card"></i>
+        </div>
+        Pay
+      </a>
+      <a href="#" class="action open-notification">
+        <div class="icon-circle">
+          <i class="fa fa-arrow-right-arrow-left"></i>
+        </div>
+        Transfer
+      </a>
+      <a href="#" class="action open-notification">
+        <div class="icon-circle">
+          <i class="fa fa-ellipsis-h"></i>
+        </div>
+        More
+      </a>
+    </div>
+
+    <div class="manage-account open-notification">
+      <div class="info">
+        <h4>Manage account</h4>
+        <span>Access tools & services for your account</span>
+      </div>
+      <div class="arrow">›</div>
+    </div>
+  
+   <div class="transactions-box">
+    <div class="header-row">
+      <h3>See all transactions</h3>
+      <a class="arrow-link open-notification" href="#full-history">&#8250;</a>
+    </div><!-- 10 High Value Transactions -->
+<div class="transaction" onclick="toggleDetails(this)">
+  <div class="desc">Tesla Model Y Purchase</div>
+  <div class="date">Feb 23, 2025</div>
+  <div class="row-bottom">
+    <div class="balance">$500,005,980.58</div>
+    <div class="amount debit">-$62,350.00</div>
+  </div>
+  <div class="details">
+    <strong>Category:</strong> Auto<br>
+    <strong>Merchant:</strong> Tesla Motors<br>
+    <strong>Status:</strong> Completed<br>
+    <strong>Transaction ID:</strong> TX-8239048392
+  </div>
+</div>
+
+<div class="transaction" onclick="toggleDetails(this)">
+  <div class="desc">Real Estate Commission</div>
+  <div class="date">Jan 21, 2025</div>
+  <div class="row-bottom">
+    <div class="balance">$562,355,980.58</div>
+    <div class="amount credit">+$150,000.00</div>
+  </div>
+  <div class="details">
+    <strong>Category:</strong> Income<br>
+    <strong>Source:</strong> Keller Williams Realty<br>
+    <strong>Status:</strong> Settled<br>
+    <strong>Transaction ID:</strong> TX-4583729901
+  </div>
+</div>
+
+<div class="transaction" onclick="toggleDetails(this)">
+  <div class="desc">Private Jet Booking</div>
+  <div class="date">Dec 20, 2024</div>
+  <div class="row-bottom">
+    <div class="balance">$562,205,980.58</div>
+    <div class="amount debit">-$75,000.00</div>
+  </div>
+  <div class="details">
+    <strong>Category:</strong> Travel<br>
+    <strong>Merchant:</strong> JetSetGo<br>
+    <strong>Status:</strong> Posted<br>
+    <strong>Transaction ID:</strong> TX-3499822333
+  </div>
+</div>
+
+<div class="transaction" onclick="toggleDetails(this)">
+  <div class="desc">Bonus Payment</div>
+  <div class="date">Oct 19, 2024</div>
+  <div class="row-bottom">
+    <div class="balance">$562,130,980.58</div>
+    <div class="amount credit">+$25,000.00</div>
+  </div>
+  <div class="details">
+    <strong>Category:</strong> Salary<br>
+    <strong>Source:</strong> Chase Corporation<br>
+    <strong>Status:</strong> Completed<br>
+    <strong>Transaction ID:</strong> TX-2398472234
+  </div>
+</div>
+
+<div class="transaction" onclick="toggleDetails(this)">
+  <div class="desc">Luxury Watch Purchase</div>
+  <div class="date">May 18, 2024</div>
+  <div class="row-bottom">
+    <div class="balance">$562,105,980.58</div>
+    <div class="amount debit">-$18,000.00</div>
+  </div>
+  <div class="details">
+    <strong>Category:</strong> Shopping<br>
+    <strong>Merchant:</strong> Rolex Boutique<br>
+    <strong>Status:</strong> Completed<br>
+    <strong>Transaction ID:</strong> TX-5647382910
+  </div>
+</div>
+
+<div class="transaction" onclick="toggleDetails(this)">
+  <div class="desc">Consulting Income</div>
+  <div class="date">Jun 17, 2024</div>
+  <div class="row-bottom">
+    <div class="balance">$562,123,980.58</div>
+    <div class="amount credit">+$30,000.00</div>
+  </div>
+  <div class="details">
+    <strong>Category:</strong> Business<br>
+    <strong>Client:</strong> BlueSky Ventures<br>
+    <strong>Status:</strong> Completed<br>
+    <strong>Transaction ID:</strong> TX-8881221000
+  </div>
+</div>
+
+<div class="transaction" onclick="toggleDetails(this)">
+  <div class="desc">Private School Tuition</div>
+  <div class="date">Nov 16, 2023</div>
+  <div class="row-bottom">
+    <div class="balance">$562,093,980.58</div>
+    <div class="amount debit">-$35,000.00</div>
+  </div>
+  <div class="details">
+    <strong>Category:</strong> Education<br>
+    <strong>Institution:</strong> Harvard Prep<br>
+    <strong>Status:</strong> Paid<br>
+    <strong>Transaction ID:</strong> TX-8474739923
+  </div>
+</div>
+
+<div class="transaction" onclick="toggleDetails(this)">
+  <div class="desc">Charity Donation</div>
+  <div class="date">Jun 15, 2023</div>
+  <div class="row-bottom">
+    <div class="balance">$562,058,980.58</div>
+    <div class="amount debit">-$10,000.00</div>
+  </div>
+  <div class="details">
+    <strong>Category:</strong> Charity<br>
+    <strong>Organization:</strong> UNICEF<br>
+    <strong>Status:</strong> Completed<br>
+    <strong>Transaction ID:</strong> TX-2233445566
+  </div>
+</div>
+
+<div class="transaction" onclick="toggleDetails(this)">
+  <div class="desc">Dividend Payout</div>
+  <div class="date">Jun 14, 2023</div>
+  <div class="row-bottom">
+    <div class="balance">$562,068,980.58</div>
+    <div class="amount credit">+$5,000.00</div>
+  </div>
+  <div class="details">
+    <strong>Category:</strong> Investment<br>
+    <strong>Source:</strong> Apple Inc<br>
+    <strong>Status:</strong> Posted<br>
+    <strong>Transaction ID:</strong> TX-6677889900
+  </div>
+</div>
+
+<div class="transaction" onclick="toggleDetails(this)">
+  <div class="desc">Luxury Hotel Booking</div>
+  <div class="date">May 13, 2023</div>
+  <div class="row-bottom">
+    <div class="balance">$562,063,980.58</div>
+    <div class="amount debit">-$5,000.00</div>
+  </div>
+  <div class="details">
+    <strong>Category:</strong> Travel<br>
+    <strong>Hotel:</strong> Four Seasons<br>
+    <strong>Status:</strong> Completed<br>
+    <strong>Transaction ID:</strong> TX-0001234567
+  </div>
+</div>
+</div>
+  </div> 
+  <div class="credit-card open-notification">
+  <div class="credit-content">  
+    <div class="credit-text">  
+      <div class="title">Credit Journey</div>  
+      <div class="subtitle">Sign up for your free credit score and more</div>  
+    </div>  
+    <div class="arrow">&rsaquo;</div>    
+  </div>  
+</div>
+
+<div class="account-services open-notification">  
+  <h2>Account Services</h2>  
+  <div class="service-options">  
+    <a href="#" class="service-item">  
+      <div class="icon-circle"><i class="fa fa-credit-card"></i></div>  
+      <div class="label">Replace Card</div>  
+    </a>  
+    <a href="#" class="service-item">  
+      <div class="icon-circle"><i class="fa fa-lock"></i></div>  
+      <div class="label">Lock Card</div>  
+    </a>  
+    <a href="#" class="service-item">  
+      <div class="icon-circle"><i class="fa fa-plus-circle"></i></div>  
+      <div class="label">New Card</div>  
+    </a>  
+    <a href="#" class="service-item">  
+      <div class="icon-circle"><i class="fa fa-eye"></i></div>  
+      <div class="label">View PIN</div>  
+    </a>  
+    <a href="#" class="service-item">  
+      <div class="icon-circle"><i class="fa fa-hand-holding-usd"></i></div>  
+      <div class="label">Request Check</div>  
+    </a>  
+    <a href="#" class="service-item">  
+      <div class="icon-circle"><i class="fa fa-file-alt"></i></div>  
+      <div class="label">Statements</div>  
+    </a>  
+    <a href="#" class="service-item">  
+      <div class="icon-circle"><i class="fa fa-user-shield"></i></div>  
+      <div class="label">Privacy Settings</div>  
+    </a>  
+    <a href="#" class="service-item">  
+      <div class="icon-circle"><i class="fa fa-phone"></i></div>  
+      <div class="label">Contact Us</div>  
+    </a>  
+  </div>  
+</div>  
+
+<!-- Bottom Navigation -->  
+<div class="bottom-nav open-notification">  
+  <a href="#" class="nav-item active"><i class="fa fa-home"></i><span>Accounts</span></a>  
+  <a href="#" class="nav-item"><i class="fa fa-exchange-alt"></i><span>Pay&Transfer</span></a>  
+  <a href="#" class="nav-item"><i class="fa fa-tasks"></i><span>Plan&Track</span></a>  
+  <a href="#" class="nav-item"><i class="fa fa-chart-line"></i><span>Investments</span></a>  
+</div>  
+<!-- Notification Modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h2>Notification</h2>
+    <p>Your account is temporarily restricted. Please contact your IRS management to resolve your tax obligations and restore access.</p>
+    <button class="close-btn" id="closeModal">Close</button>
+  </div>
+</div>
+<script>  
+  const navItems = document.querySelectorAll('.nav-item');  
+  navItems.forEach(item => {  
+    item.addEventListener('click', function () {  
+      navItems.forEach(i => i.classList.remove('active'));  
+      this.classList.add('active');  
+    });  
+  });  
+</script>  
+   <script>
+    function toggleDetails(transaction) {
+      transaction.classList.toggle("active");
+    }
+  </script>
+   <script>
+  function toggleDetailss() {
+    const details = document.getElementById("extraDetails");
+    const button = document.querySelector(".show-details button");
+
+    if (details.style.display === "none" || details.style.display === "") {
+      details.style.display = "block";
+      button.innerHTML = "Hide details ▲";
+    } else {
+      details.style.display = "none";
+      button.innerHTML = "Show details ▼";
+    }
+  }
+</script>
+<script>
+  const openButtons = document.querySelectorAll('.open-notification');
+  const modalOverlay = document.getElementById('modalOverlay');
+  const closeModal = document.getElementById('closeModal');
+
+  openButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+      modalOverlay.style.display = 'flex';
+    });
+  });
+
+  closeModal.addEventListener('click', function() {
+    modalOverlay.style.display = 'none';
+  });
+
+  window.addEventListener('click', function(e) {
+    if (e.target === modalOverlay) {
+      modalOverlay.style.display = 'none';
+    }
+  });
+</script>
+</body>
+</html>
